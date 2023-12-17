@@ -2,15 +2,22 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Label } from "recharts";
-
-const url = "http://localhost:5005";
+import { Link } from "react-router-dom";
+import UpdateGraph from "../components/UpdateGraph";
 
 function App() {
+  const url = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const [hotelData, setHotelData] = useState(null);
 
   const fetchHotelData = () => {
     axios
-      .get(`${url}/api/hotel`)
+      .get(`${url}/api/hotel`, {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+        },
+      })
       .then((response) => {
         setHotelData(response.data);
         console.log(response.data);
@@ -26,6 +33,8 @@ function App() {
 
   return (
     <div>
+      <h2>Sprache auswählen:</h2>
+      <Link to="/de/graph">de</Link>/<Link to="/en/graph">en</Link>
       <div className="graph-container">
         <h1>Klickübersicht Grand Hotel Musterstadt</h1>
         {hotelData && (
@@ -50,6 +59,7 @@ function App() {
           </LineChart>
         )}
       </div>
+      <UpdateGraph hotelDataList={hotelData} updateHotelData={fetchHotelData} />
     </div>
   );
 }
