@@ -1,4 +1,5 @@
 require("./db");
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -8,12 +9,26 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/api/hotel", (req, res, next) => {
-  Hotel.find()
-    .then((hotelData) => {
-      console.log("Fetching Data works");
-      res.json(hotelData);
-    })
-    .catch((err) => res.json(err));
+  const { authorization } = req.headers;
+  let apiKey = "";
+
+  if (authorization) {
+    apiKey = req.headers.authorization.split(" ")[1];
+    console.log(apiKey);
+    console.log("env", process.env.API_KEY);
+  }
+
+  if (apiKey === process.env.API_KEY) {
+    Hotel.find()
+      .then((hotelData) => {
+        console.log("Fetching Hotel Data successfull");
+        console.log(authorization);
+        res.json(hotelData);
+      })
+      .catch((err) => res.status(500).json({ error: err.message }));
+  } else {
+    res.status(401).json({ error: "Unauthorized" });
+  }
 });
 
 app.get("/api/hotel/:dayId", (req, res, next) => {
@@ -29,7 +44,6 @@ app.put("/api/hotel/:dayId", (req, res, next) => {
   const { dayId } = req.params;
   console.log(req.body);
   const updatedData = {
-    date: req.body.date,
     numOfClicks: Math.floor(Math.random() * 96) + 5,
   };
 
