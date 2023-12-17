@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function UpdateGraph({ hotelDataList, updateHotelData }) {
+function UpdateGraph({ hotelDataList, updateHotelData, textButton }) {
   const url = import.meta.env.VITE_API_URL;
 
   const handleUpdate = () => {
@@ -25,7 +25,7 @@ function UpdateGraph({ hotelDataList, updateHotelData }) {
 
   return (
     <div>
-      <button onClick={handleUpdate}>Update</button>
+      <button onClick={handleUpdate}>{textButton}</button>
     </div>
   );
 }

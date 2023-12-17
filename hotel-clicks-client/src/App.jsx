@@ -3,13 +3,22 @@ import "./App.css";
 import axios from "axios";
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Label } from "recharts";
 import { Link } from "react-router-dom";
+import i18n from "./i18n/config";
+import { useTranslation } from "react-i18next";
 import UpdateGraph from "../components/UpdateGraph";
 
 function App() {
   const url = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
+  const { t } = useTranslation();
 
   const [hotelData, setHotelData] = useState(null);
+  const [currentLanguage, setCurrentLanguage] = useState("en");
+
+  const changeLanguage = (language) => {
+    setCurrentLanguage(language);
+    i18n.changeLanguage(language);
+  };
 
   const fetchHotelData = () => {
     axios
@@ -33,10 +42,20 @@ function App() {
 
   return (
     <div>
-      <h2>Sprache auswählen:</h2>
-      <Link to="/de/graph">de</Link>/<Link to="/en/graph">en</Link>
+      <h2>{t("languageSelector")}</h2>
+
+      {currentLanguage === "en" && (
+        <Link to="/de/graph" onClick={() => changeLanguage("de")}>
+          de
+        </Link>
+      )}
+      {currentLanguage === "de" && (
+        <Link to="/en/graph" onClick={() => changeLanguage("en")}>
+          en
+        </Link>
+      )}
       <div className="graph-container">
-        <h1>Klickübersicht Grand Hotel Musterstadt</h1>
+        <h1>{t("title")}</h1>
         {hotelData && (
           <LineChart
             width={1500}
@@ -51,7 +70,7 @@ function App() {
                 position="insideLeft"
                 style={{ textAnchor: "middle" }}
               >
-                Anzahl der Klicks
+                {t("yAxisLabel")}
               </Label>
             </YAxis>
             <CartesianGrid stroke="#8e918f" strokeDasharray="5 5" />
@@ -59,7 +78,11 @@ function App() {
           </LineChart>
         )}
       </div>
-      <UpdateGraph hotelDataList={hotelData} updateHotelData={fetchHotelData} />
+      <UpdateGraph
+        hotelDataList={hotelData}
+        updateHotelData={fetchHotelData}
+        textButton={t("updateBtn")}
+      />
     </div>
   );
 }
