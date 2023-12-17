@@ -5,6 +5,4 @@ const hotelSchema = new Schema({
   numOfClicks: { type: Number, required: true },
 });
 
-const Hotel = model("Hotel", hotelSchema);
-
-module.exports = Hotel;
+module.exports = model("Hotel", hotelSchema);
