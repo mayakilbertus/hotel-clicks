@@ -22,11 +22,11 @@ mongoose
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .then((response) => {
+  .then(() => {
     return Hotel.insertMany(clicksDec);
   })
   .then((hotelArrFromDb) => {
-    console.log("Collection for December created");
+    console.log("Collection for December created:", hotelArrFromDb);
     mongoose.connection.close();
   })
   .catch((err) => console.error("Error...", err));
