@@ -1,3 +1,7 @@
+/* Navbar: #1d3557 */
+/* Btn: #a8dadc */
+/* #e63946 #f1faee  */
+
 * {
   padding: 0;
   margin: 0;
@@ -6,17 +10,42 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background: #f3f7f1;
 }
 
 .graph-container {
   margin: 20vh auto;
   width: 100rem;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .graph-container h1 {
   margin-bottom: 8rem;
 }
 
-/* .y-label {
-  position: left;
-} */
+.NavBar {
+  background-color: #1d3557;
+  padding: 1rem;
+  color: #f3f7f1;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.NavBar a {
+  text-decoration: none;
+  color: #f3f7f1;
+}
+
+.btn {
+  background-color: #e63946;
+  padding: 5px 10px;
+  border: none;
+  color: #f3f7f1;
+  width: 5rem;
+  align-self: flex-end;
+}

@@ -24,9 +24,9 @@ function UpdateGraph({ hotelDataList, updateHotelData, textButton }) {
   };
 
   return (
-    <div>
-      <button onClick={handleUpdate}>{textButton}</button>
-    </div>
+    <button onClick={handleUpdate} className="btn">
+      {textButton}
+    </button>
   );
 }
 

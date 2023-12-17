@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import i18n from "./i18n/config";
 import { useTranslation } from "react-i18next";
 import UpdateGraph from "../components/UpdateGraph";
+import NavBar from "../components/NavBar";
 
 function App() {
   const url = import.meta.env.VITE_API_URL;
@@ -42,18 +43,11 @@ function App() {
 
   return (
     <div>
-      <h2>{t("languageSelector")}</h2>
+      <NavBar
+        changeLanguage={changeLanguage}
+        currentLanguage={currentLanguage}
+      />
 
-      {currentLanguage === "en" && (
-        <Link to="/de/graph" onClick={() => changeLanguage("de")}>
-          de
-        </Link>
-      )}
-      {currentLanguage === "de" && (
-        <Link to="/en/graph" onClick={() => changeLanguage("en")}>
-          en
-        </Link>
-      )}
       <div className="graph-container">
         <h1>{t("title")}</h1>
         {hotelData && (
@@ -77,12 +71,12 @@ function App() {
             <Line type="monotone" dataKey="numOfClicks" stroke="#8884d8" />
           </LineChart>
         )}
+        <UpdateGraph
+          hotelDataList={hotelData}
+          updateHotelData={fetchHotelData}
+          textButton={t("updateBtn")}
+        />
       </div>
-      <UpdateGraph
-        hotelDataList={hotelData}
-        updateHotelData={fetchHotelData}
-        textButton={t("updateBtn")}
-      />
     </div>
   );
 }
