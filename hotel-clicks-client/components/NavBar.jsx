@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 
 function NavBar({ changeLanguage, currentLanguage }) {
   const { t } = useTranslation();
