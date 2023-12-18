@@ -2,23 +2,24 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Label } from "recharts";
-import { Link } from "react-router-dom";
 import i18n from "./i18n/config";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import UpdateGraph from "../components/UpdateGraph";
 import NavBar from "../components/NavBar";
 
 function App() {
   const url = import.meta.env.VITE_API_URL;
   const apiKey = import.meta.env.VITE_API_KEY;
+  const navigate = useNavigate();
   const { t } = useTranslation();
-
   const [hotelData, setHotelData] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState("en");
 
   const changeLanguage = (language) => {
     setCurrentLanguage(language);
     i18n.changeLanguage(language);
+    navigate(`/${language}/graph`);
   };
 
   const fetchHotelData = () => {
@@ -30,7 +31,6 @@ function App() {
       })
       .then((response) => {
         setHotelData(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.log("Fetching Hotel data not successful", err);

@@ -6,18 +6,15 @@ function NavBar({ changeLanguage, currentLanguage }) {
 
   return (
     <div className="NavBar">
-      <h3>{t("languageSelector")}: </h3>
-
-      {currentLanguage === "en" && (
-        <Link to="/de/graph" onClick={() => changeLanguage("de")}>
-          <h3>de</h3>
-        </Link>
-      )}
-      {currentLanguage === "de" && (
-        <Link to="/en/graph" onClick={() => changeLanguage("en")}>
-          <h3>en</h3>
-        </Link>
-      )}
+      <label>{t("languageSelector")}: </label>
+      <select
+        id="languageSelect"
+        value={currentLanguage}
+        onChange={(e) => changeLanguage(e.target.value)}
+      >
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+      </select>
     </div>
   );
 }

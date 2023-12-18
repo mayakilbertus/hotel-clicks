@@ -1,7 +1,3 @@
-/* Navbar: #1d3557 */
-/* Btn: #a8dadc */
-/* #e63946 #f1faee  */
-
 * {
   padding: 0;
   margin: 0;
@@ -46,6 +42,11 @@ body {
   padding: 5px 10px;
   border: none;
   color: #f3f7f1;
-  width: 5rem;
+  width: 6rem;
   align-self: flex-end;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #a12a34;
 }
